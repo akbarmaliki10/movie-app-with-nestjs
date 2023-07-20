@@ -1,8 +1,8 @@
 import { Injectable, HttpException, HttpStatus, } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as moment from "moment";
-import { CreateMovieDto } from 'src/dto/CreateMovie.dto';
-import { Movies } from 'src/typeorm/Movies';
+import { CreateMovieDto } from 'src/movies/dto/CreateMovie.dto';
+import { Movies } from 'src/movies/typeorm/Movies';
 import { Repository } from 'typeorm';
 
 @Injectable()
