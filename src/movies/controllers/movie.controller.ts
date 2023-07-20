@@ -9,7 +9,7 @@ export class MovieController {
 
   @Get()
   getAllMovie() {
-    return []
+    return this.movieService.getAllMovie();
   }
 
   @Get(":id")

@@ -8,6 +8,8 @@ import { MoviesModule } from './movies/modules/movies.module';
 import { UsersModule } from './users/users.module';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 
@@ -22,8 +24,8 @@ import { AuthModule } from './auth/auth.module';
       database: 'movies',
       entities: entities,
       synchronize: true,
-    }), MoviesModule, UsersModule, AuthModule],
+    }), MoviesModule, UsersModule, AuthModule, EventEmitterModule.forRoot(), ScheduleModule.forRoot()],
 })
 export class AppModule {
-
+  
 }
