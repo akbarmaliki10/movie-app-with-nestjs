@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
@@ -13,17 +14,27 @@ export class Movies {
     })
     title: string
 
-    @Column()
+    @Column({
+        type: "longtext"
+    })
     overview: string
 
     @Column({
-        name: "play_until"
+        name: "vote_average",
+        type: "double",
+        default: -1
     })
-    play_until: Date
+    vote_average: number
 
     @Column({
-        name: "created_at"
+        name: "upload_time"
     })
-    created_at: Date
+    upload_time: Date
+
+    @Column({
+        name: "release_date",
+        default: "1988-01-01"
+    })
+    release_date: Date
     
 }

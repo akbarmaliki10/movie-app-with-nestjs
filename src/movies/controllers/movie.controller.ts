@@ -1,5 +1,5 @@
 import { ValidationPipe } from "@nestjs/common";
-import { Controller, Get, Post, Delete, Body, UsePipes, UseInterceptors, UploadedFile } from "@nestjs/common/decorators";
+import { Controller, Get, Post, Delete, Body, UsePipes, UseInterceptors, UploadedFile, Put } from "@nestjs/common/decorators";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { CreateMovieDto } from "src/movies/dto/CreateMovie.dto";
 import { MovieService } from "src/movies/services/movie.service";
@@ -34,4 +34,15 @@ export class MovieController {
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return file
   }
+
+  @Put()
+  seedMovies() {
+    return this.movieService.seedDB();
+  }
+
+  @Delete()
+  deleteAllMovies() {
+    return this.movieService.deleteAllMovie();
+  }
+
 }
