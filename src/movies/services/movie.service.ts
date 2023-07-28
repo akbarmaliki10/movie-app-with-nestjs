@@ -47,9 +47,8 @@ export class MovieService {
       const result = axios({
         method: 'get',
         url: 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc',
-        headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYTRjZWJmZGQ3ODZkYmRkNGZmNGExZGY1NTZlZWJiZSIsInN1YiI6IjY0YmUyNDUxZTlkYTY5MDEyZTBlYzhlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g1_UgsYGdBsKHUX5v2CDHbbaxjUsZ3KM3xR7xozfr48', Accept: 'application/json' }
+        headers: { 'Authorization': `Bearer ${process.env.TMDB_READ_KEY}`, Accept: 'application/json' }
       }).then(async (data) => {
-        console.log(data[1])
         const resData = data.data.results
         for (var i = 0; i < resData.length; i++) {
           const newDto = new CreateMovieDto();
@@ -63,7 +62,6 @@ export class MovieService {
               message: err.message
             }, HttpStatus.BAD_REQUEST)
           });
-          console.log(resData[i])
         }
         return {"status":"Seeding success"}
       })
