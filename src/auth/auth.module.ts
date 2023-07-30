@@ -6,13 +6,18 @@ import { LocalStrategy } from './helper/local.strategy';
 import { AuthController } from './controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './helper/jwt.strategy';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { User } from 'src/users/users.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
     providers: [AuthService, PassportModule, LocalStrategy, JwtStrategy],
     imports: [UsersModule, JwtModule.register({
         secret: "peaknose secret",
         signOptions: { expiresIn : '60s' }
-    })],
+    }),
+    EventEmitterModule.forRoot(),
+    TypeOrmModule.forFeature([User])],
     controllers: [AuthController],
     exports: [AuthService]
 })

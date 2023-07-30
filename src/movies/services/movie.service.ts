@@ -23,7 +23,7 @@ export class MovieService {
 
   async createMovieService(createMovieDto: CreateMovieDto) {
     this.eventEmitter.emit(
-      'user.created',
+      'movie.created',
       new UserCreatedEvent(createMovieDto)
     );
     const establishTimeout = setTimeout(
@@ -78,7 +78,7 @@ export class MovieService {
     return this.movieRepository.delete({})
   }
 
-  @OnEvent('user.created')
+  @OnEvent('movie.created')
   welcomeNewUser(payload: UserCreatedEvent) {
     this.logger.log("Creating movie --- " + payload.createMovieDto.title)
     const newMovie = this.movieRepository.create(payload.createMovieDto);
@@ -91,7 +91,7 @@ export class MovieService {
     });
   }
 
-  @OnEvent('user.created', { async: true })
+  @OnEvent('movie.created', { async: true })
   async sendWelcomeGift(payload: UserCreatedEvent) {
     this.logger.log("Please remind that the movie is playing until: " + payload.createMovieDto.play_until);
     await new Promise<void>((resolve) => setTimeout(() => resolve(), 3000));
