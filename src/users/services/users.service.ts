@@ -37,15 +37,15 @@ export class UsersService {
 
     async addFavoriteMovie(addFavoriteMovieDto : AddFavoriteMovieDto){
         const movie = await this.movieRepository.findOneBy({title:addFavoriteMovieDto.movieName})
-        const user = await this.userRepository.findOneBy({name: addFavoriteMovieDto.username})
+        const user = await this.userRepository.findOne({where: {name : addFavoriteMovieDto.username}, relations : {
+            movies: true
+        }})
 
         if (user.movies == undefined){
             user.movies = [movie]
         } else {
             user.movies.push(movie);
         }
-        console.log(user)
-        console.log(movie)
         return await this.userRepository.save(user)
     }
 }
