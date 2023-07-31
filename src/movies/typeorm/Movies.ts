@@ -1,5 +1,7 @@
 import * as moment from "moment";
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { MovieTags } from "./MovieTags";
+import { MovieSchedules } from "./MovieSchedules";
 
 @Entity()
 export class Movies {
@@ -37,4 +39,9 @@ export class Movies {
     })
     release_date: Date
     
+    @OneToMany(type => MovieTags, movie_tags => movie_tags.movie_id)
+    movie_tags: MovieTags[]
+
+    @OneToMany(type => MovieSchedules, movie_schedule => movie_schedule.movie_id)
+    movie_schedules : MovieSchedules[]
 }

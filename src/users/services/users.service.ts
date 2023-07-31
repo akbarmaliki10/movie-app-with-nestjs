@@ -3,14 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../typeorm/users.entity';
 import { Repository } from 'typeorm';
 import { AddFavoriteMovieDto } from '../dto/addFavoriteMovieDto';
-import { Movies } from 'src/movies/typeorm/Movies';
-
-// export type User = {
-//     id: number,
-//     name: string,
-//     username: string,
-//     password: string
-// }
+import { Movies } from 'src/movies/typeorm/Movies'; 
 
 @Injectable()
 export class UsersService {

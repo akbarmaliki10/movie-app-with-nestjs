@@ -1,7 +1,6 @@
-import * as moment from "moment";
-import { type } from "os";
 import { Movies } from "src/movies/typeorm/Movies";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Orders } from "src/movies/typeorm/Orders";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 export class User {
@@ -29,4 +28,7 @@ export class User {
     )
     @JoinTable()
     movies: Movies[];
+
+    @OneToMany(type => Orders, orders_id => orders_id.user_id)
+    orders_id: Orders[]
 }
