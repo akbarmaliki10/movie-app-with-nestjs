@@ -1,5 +1,7 @@
 import * as moment from "moment";
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { type } from "os";
+import { Movies } from "src/movies/typeorm/Movies";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 export class User {
@@ -21,4 +23,10 @@ export class User {
     @Column({
     })
     password: string
+
+    @ManyToMany(
+        type => Movies, { cascade: true }
+    )
+    @JoinTable()
+    movies: Movies[];
 }

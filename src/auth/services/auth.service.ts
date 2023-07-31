@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../dto/user.dto';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/users.entity';
+import { User } from 'src/users/typeorm/users.entity';
 import { AuthCreatedEvent } from '../events/AuthCreatedEvent';
 import { InjectRepository } from '@nestjs/typeorm';
 

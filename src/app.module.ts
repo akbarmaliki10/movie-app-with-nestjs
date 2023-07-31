@@ -5,7 +5,7 @@ import { DataSource } from 'typeorm';
 import { entities } from './movies/typeorm';
 import { MovieService } from './movies/services/movie.service';
 import { MoviesModule } from './movies/modules/movies.module';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/modules/users.module';
 import { AuthService } from './auth/services/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
