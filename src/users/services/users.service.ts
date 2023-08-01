@@ -23,7 +23,8 @@ export class UsersService {
     async getAllUser(){
         return await this.userRepository.find({
             relations: {
-                movies: true
+                movies: true,
+                orders_id: true
             }
         });
     }

@@ -29,7 +29,8 @@ export class Movies {
     vote_average: number
 
     @Column({
-        name: "upload_time"
+        name: "upload_time",
+        default: "1988-01-01"
     })
     upload_time: Date
 
@@ -38,6 +39,16 @@ export class Movies {
         default: "1988-01-01"
     })
     release_date: Date
+
+    @Column({
+        default: "1988-01-01"
+    })
+    updated_at: Date
+
+    @Column({
+        default: "1988-01-01"
+    })
+    deleted_at: Date
     
     @OneToMany(type => MovieTags, movie_tags => movie_tags.movie_id)
     movie_tags: MovieTags[]
