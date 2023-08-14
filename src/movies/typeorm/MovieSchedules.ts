@@ -13,7 +13,7 @@ export class MovieSchedules {
     })
     id: Number
 
-    @ManyToOne(type => Movies, movie_id => movie_id.movie_schedules)
+    @ManyToOne(type => Movies, movie_id => movie_id.movie_schedules, {onDelete: "CASCADE"})
     movie_id: Movies
 
     @OneToMany(type => OrderItems, order_items_id => order_items_id.movie_schedules_id)
