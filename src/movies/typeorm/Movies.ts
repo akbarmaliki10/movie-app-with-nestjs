@@ -53,6 +53,6 @@ export class Movies {
     @OneToMany(type => MovieTags, movie_tags => movie_tags.movie_id)
     movie_tags: MovieTags[]
 
-    @OneToMany(type => MovieSchedules, movie_schedule => movie_schedule.movie_id)
+    @OneToMany(type => MovieSchedules, movie_schedule => movie_schedule.movie_id, { onDelete: 'CASCADE' })
     movie_schedules : MovieSchedules[]
 }

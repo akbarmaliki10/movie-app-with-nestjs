@@ -9,6 +9,8 @@ import { UserCreatedEvent } from '../events/user-created.event';
 import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule';
 import axios from 'axios'
 import { response } from 'express';
+import { CreateScheduleDto } from '../dto/CreateScheduleDto';
+import { MovieSchedules } from '../typeorm/MovieSchedules';
 
 
 @Injectable()
@@ -17,6 +19,8 @@ export class MovieService {
   constructor(
     @InjectRepository(Movies)
     private movieRepository: Repository<Movies>,
+    @InjectRepository(MovieSchedules)
+    private movieScheduleRepository: Repository<MovieSchedules>,
     private readonly eventEmitter: EventEmitter2,
     private schedulerRegistry: SchedulerRegistry
   ) { }
@@ -71,7 +75,10 @@ export class MovieService {
   }
 
   async getAllMovie() {
-    return this.movieRepository.find();
+    return this.movieRepository.find({
+      relations: {
+          movie_schedules: true      }
+  });
   }
 
   async deleteAllMovie() {
@@ -97,4 +104,36 @@ export class MovieService {
     await new Promise<void>((resolve) => setTimeout(() => resolve(), 3000));
   }
 
+  async createMovieScheduleService(createScheduleDto: CreateScheduleDto) {
+    const movie = await this.movieRepository.findOneBy({title:createScheduleDto.movieName})
+    
+    const newSchedule = new MovieSchedules()
+    newSchedule.movie_id = movie
+    newSchedule.start_time = createScheduleDto.start_time
+    newSchedule.end_time = createScheduleDto.end_time
+    newSchedule.date = createScheduleDto.date
+    newSchedule.price = createScheduleDto.price
+    
+    const newMovieSchedule = this.movieScheduleRepository.create(newSchedule)
+
+    if (movie.movie_schedules == null) {
+      movie.movie_schedules= [newMovieSchedule]
+    } else {
+      movie.movie_schedules.push(newMovieSchedule)
+    }
+    this.movieRepository.save(movie)
+    return this.movieScheduleRepository.save(newMovieSchedule).catch(err => {
+      throw new HttpException({
+        message: err.message
+      }, HttpStatus.BAD_REQUEST)
+    });
+  }
+
+  async getAllMovieSchedule() {
+    return await this.movieScheduleRepository.find({
+      relations: {
+        movie_id: true
+      }
+  });
+  }
 }

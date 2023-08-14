@@ -3,14 +3,20 @@ import { Controller, Get, Post, Delete, Body, UsePipes, UseInterceptors, Uploade
 import { FileInterceptor } from "@nestjs/platform-express";
 import { CreateMovieDto } from "src/movies/dto/CreateMovie.dto";
 import { MovieService } from "src/movies/services/movie.service";
+import { CreateScheduleDto } from "../dto/CreateScheduleDto";
 
 @Controller("movies")
 export class MovieController {
   constructor(private movieService: MovieService) { };
-
+  
   @Get()
   getAllMovie() {
     return this.movieService.getAllMovie();
+  }
+  
+  @Get('/schedules')
+  getAllMovieSchedule() {
+    return this.movieService.getAllMovieSchedule();
   }
 
   @Get(":id")
@@ -44,5 +50,12 @@ export class MovieController {
   deleteAllMovies() {
     return this.movieService.deleteAllMovie();
   }
+
+  @Post("/schedules")
+  @UsePipes(ValidationPipe) //for giving better explanation in response by validating request
+  createSchedule(@Body() createScheduleDto: CreateScheduleDto) {
+    return this.movieService.createMovieScheduleService(createScheduleDto);
+  }
+
 
 }
